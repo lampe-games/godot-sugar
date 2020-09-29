@@ -7,7 +7,7 @@
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
 
-[node name="BlurrDemo" type="Node2D"]
+[node name="Demo" type="Node2D"]
 
 [node name="icon" type="Sprite" parent="."]
 position = Vector2( 191.095, 110.483 )

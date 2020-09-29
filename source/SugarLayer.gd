@@ -1,7 +1,7 @@
 tool
 extends CanvasLayer
 
-enum Effect { NONE, BLURR, PIXELATE, GRAYSCALE, SEPIA }
+enum Effect { NONE, BLURR, PIXELATE, GRAYSCALE, SEPIA, GRAIN }
 
 export (Effect) var effect = Effect.NONE setget _set_effect
 export (Resource) var parameters = null
@@ -37,6 +37,15 @@ func _set_effect(a_effect):
 		parameters = ShaderMaterial.new()
 		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/sepia.shader")
 		_setup_overlay()
+	elif effect == Effect.GRAIN:
+		parameters = ShaderMaterial.new()
+		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/grain.shader")
+		var noise_texture = NoiseTexture.new()
+		noise_texture.noise = OpenSimplexNoise.new()
+		noise_texture.noise.period = 0.1
+		noise_texture.noise.persistence = 0.0
+		parameters.set_shader_param('grain_texture', noise_texture)
+		_setup_overlay()
 	else:
 		parameters = null
 		_remove_overlay()
@@ -47,8 +56,8 @@ func _setup_overlay():
 		_overlay_node = ColorRect.new()
 		_overlay_node.anchor_right = 1.0
 		_overlay_node.anchor_bottom = 1.0
+		_overlay_node.mouse_filter = _overlay_node.MOUSE_FILTER_IGNORE
 		add_child(_overlay_node)
-		# TODO: ignore mouse
 	_overlay_node.material = parameters
 
 func _remove_overlay():

@@ -9,7 +9,7 @@ shader = ExtResource( 3 )
 shader_param/blurr_factor = 5.0
 shader_param/remove_alpha = true
 
-[node name="BlurrDemo" type="Node2D"]
+[node name="Demo" type="Node2D"]
 
 [node name="icon" type="Sprite" parent="."]
 position = Vector2( 191.095, 110.483 )

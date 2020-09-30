@@ -16,6 +16,7 @@ func _ready():
 		return
 	_setup_overlay()
 
+
 func _set_effect(a_effect):
 	print('_set_effect')
 	effect = a_effect
@@ -45,11 +46,15 @@ func _set_effect(a_effect):
 		noise_texture.noise.period = 0.1
 		noise_texture.noise.persistence = 0.0
 		parameters.set_shader_param('grain_texture', noise_texture)
+		var gradient_texture = GradientTexture.new()
+		gradient_texture.gradient = Gradient.new()
+		parameters.set_shader_param('grain_gradient_texture', gradient_texture)
 		_setup_overlay()
 	else:
 		parameters = null
 		_remove_overlay()
 	property_list_changed_notify()
+
 
 func _setup_overlay():
 	if _overlay_node == null:
@@ -59,6 +64,7 @@ func _setup_overlay():
 		_overlay_node.mouse_filter = _overlay_node.MOUSE_FILTER_IGNORE
 		add_child(_overlay_node)
 	_overlay_node.material = parameters
+
 
 func _remove_overlay():
 	if _overlay_node != null:

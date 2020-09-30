@@ -9,7 +9,6 @@ uniform int sub_mix_add : hint_range(0, 2) = 0;
 void fragment()
 {
   vec3 color = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
-  vec2 screen_pixel = SCREEN_UV * SCREEN_PIXEL_SIZE;
   vec2 grain_to_screen_ratio =
       vec2(textureSize(grain_texture, 0)) / vec2(textureSize(SCREEN_TEXTURE, 0)) * grain_size;
   vec2 periodic_grain_texture_uv = mod(SCREEN_UV, grain_to_screen_ratio) / grain_to_screen_ratio;

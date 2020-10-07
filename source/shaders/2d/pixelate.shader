@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform int pixels_to_cluster : hint_range(1, 9999) = 1;
+uniform int pixels_to_cluster : hint_range(1, 9999) = 5;
 uniform bool blurr = false;
 
 void fragment()

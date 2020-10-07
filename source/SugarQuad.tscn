@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/godot-sugar/source/SugarQuad.gd" type="Script" id=1]
+
+[sub_resource type="QuadMesh" id=1]
+size = Vector2( 2, 2 )
+
+[node name="SugarQuad" type="MeshInstance"]
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource( 1 )
+material/0 = null
+script = ExtResource( 1 )

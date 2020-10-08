@@ -18,7 +18,6 @@ func _ready():
 
 
 func _set_effect(a_effect):
-	print('_set_effect')
 	effect = a_effect
 	if not Engine.is_editor_hint() or not _ready_already:
 		return

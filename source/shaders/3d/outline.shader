@@ -75,7 +75,8 @@ void fragment()
   // }
 
   // float edgeness = max(
-  //     float(depth_edge_confidence == 2), float(depth_edge_confidence > 0) * color_edge_confidence);
+  //     float(depth_edge_confidence == 2), float(depth_edge_confidence > 0) *
+  //     color_edge_confidence);
   // float edgeness = max(
   //                      float(depth_edge_confidence == 2), color_edge_confidence);
   // ALBEDO = mix(ALBEDO, outline_color.rgb, edgeness);

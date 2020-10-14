@@ -53,7 +53,7 @@ func _set_effect(a_effect):
 	elif effect == Effect.PALETTE:
 		parameters = ShaderMaterial.new()
 		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/palette.shader")
-		var gradient_texture = preload("res://addons/godot-sugar/assets/palettes/black_n_white.tres")
+		var gradient_texture = preload("res://addons/godot-sugar/assets/palettes/black_n_white_2c.tres")
 		parameters.set_shader_param('palette_texture', gradient_texture)
 		var pattern_texture = preload("res://addons/godot-sugar/assets/bayer_dither_pattern_8x8.png")
 		parameters.set_shader_param('dither_pattern_texture', pattern_texture)

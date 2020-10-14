@@ -1,0 +1,63 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://addons/godot-sugar/assets/palettes/black_n_white_2c.tres" type="Texture" id=1]
+[ext_resource path="res://addons/godot-sugar/source/SugarQuad.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/godot-sugar/assets/bayer_dither_pattern_8x8.png" type="Texture" id=3]
+[ext_resource path="res://addons/godot-sugar/source/shaders/3d/palette.shader" type="Shader" id=4]
+
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.760784, 0.305882, 0.305882, 1 )
+
+[sub_resource type="SphereMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.313726, 0.443137, 0.227451, 1 )
+
+[sub_resource type="PlaneMesh" id=4]
+size = Vector2( 10, 10 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.588235, 0.513726, 0.160784, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 4 )
+shader_param/palette_colors = 64
+shader_param/dithering_strength = 0.0
+shader_param/euclidean_redmean_cie76 = 2
+shader_param/palette_texture = ExtResource( 1 )
+shader_param/dither_pattern_texture = ExtResource( 3 )
+
+[node name="Demo" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84512, 0.551937, 0 )
+material_override = SubResource( 1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+material_override = SubResource( 3 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46385, 0.930742, 0 )
+material_override = SubResource( 5 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.508591, 0.361329, -0.781522, 0, 0.907682, 0.419658, 0.861008, -0.213434, 0.461639, 0, 5.90866, 0 )
+light_energy = 0.7
+shadow_enabled = true
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.921233, 0.389011, 0, -0.389011, 0.921233, 0, 2.99015, 5.02032 )
+
+[node name="SugarQuad" parent="." instance=ExtResource( 2 )]
+material_override = SubResource( 7 )
+effect = 4
+parameters = SubResource( 7 )

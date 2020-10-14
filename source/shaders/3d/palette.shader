@@ -1,4 +1,5 @@
-shader_type canvas_item;
+shader_type spatial;
+render_mode unshaded;
 
 // https://en.wikipedia.org/wiki/Ordered_dithering
 // https://en.wikipedia.org/wiki/Color_difference
@@ -84,11 +85,18 @@ float color_difference(vec3 color_a, vec3 color_b)
   return distance(rgb_to_lab(ca), rgb_to_lab(cb));
 }
 
+void vertex()
+{
+  POSITION = vec4(VERTEX.xy, -1.0, 1.0);
+}
+
 void fragment()
 {
+  // since the quad covers an entire screen, we can assume that:
+  // VIEWPORT_SIZE == textureSize(SCREEN_TEXTURE, 0) == textureSize(DEPTH_TEXTURE, 0)
+
   vec3 original_color = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
-  vec2 pattern_to_screen_ratio =
-      vec2(textureSize(dither_pattern_texture, 0)) / vec2(textureSize(SCREEN_TEXTURE, 0));
+  vec2 pattern_to_screen_ratio = vec2(textureSize(dither_pattern_texture, 0)) / VIEWPORT_SIZE;
   vec2 periodic_pattern_texture_uv =
       mod(SCREEN_UV, pattern_to_screen_ratio) / pattern_to_screen_ratio;
   float dither_threshold = textureLod(dither_pattern_texture, periodic_pattern_texture_uv, 0.0).r;
@@ -107,5 +115,5 @@ void fragment()
       min_distance = a_distance;
     }
   }
-  COLOR.rgb = nearest_palette_color;
+  ALBEDO = nearest_palette_color;
 }

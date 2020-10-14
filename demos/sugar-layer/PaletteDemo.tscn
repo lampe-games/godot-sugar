@@ -4,12 +4,13 @@
 [ext_resource path="res://addons/godot-sugar/source/SugarLayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot-sugar/assets/bayer_dither_pattern_8x8.png" type="Texture" id=3]
 [ext_resource path="res://addons/godot-sugar/source/shaders/2d/palette.shader" type="Shader" id=4]
-[ext_resource path="res://addons/godot-sugar/assets/palettes/black_n_white.tres" type="Texture" id=5]
+[ext_resource path="res://addons/godot-sugar/assets/palettes/black_n_white_2c.tres" type="Texture" id=5]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 4 )
 shader_param/palette_colors = 2
-shader_param/amount_of_color_space_spread = 0.5
+shader_param/dithering_strength = 0.5
+shader_param/euclidean_redmean_cie76 = 2
 shader_param/palette_texture = ExtResource( 5 )
 shader_param/dither_pattern_texture = ExtResource( 3 )
 

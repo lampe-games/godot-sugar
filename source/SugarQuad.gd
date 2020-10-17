@@ -1,7 +1,7 @@
 tool
 extends MeshInstance
 
-enum Effect { NONE, DARKEN, DEPTH, OUTLINE, PALETTE }
+enum Effect { NONE, DARKEN, DEPTH, OUTLINE, PALETTE, LUT }
 
 export (Effect) var effect = Effect.NONE setget _set_effect
 export (bool) var randomize_parameters = false setget _set_randomize_parameters
@@ -43,6 +43,12 @@ func _set_effect(a_effect):
 		parameters.set_shader_param('palette_texture', gradient_texture)
 		var pattern_texture = preload("res://addons/godot-sugar/assets/bayer_dither_pattern_8x8.png")
 		parameters.set_shader_param('dither_pattern_texture', pattern_texture)
+		material_override = parameters
+	if effect == Effect.LUT:
+		parameters = ShaderMaterial.new()
+		parameters.shader = preload("res://addons/godot-sugar/source/shaders/3d/lut.shader")
+		var lut_texture = preload("res://addons/godot-sugar/assets/luts/32x32x32/cinematic/wipe.png")
+		parameters.set_shader_param('lut_texture', lut_texture)
 		material_override = parameters
 	property_list_changed_notify()
 

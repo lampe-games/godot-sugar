@@ -26,28 +26,30 @@ func _set_effect(a_effect):
 		material_override = null
 	if effect == Effect.DARKEN:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/3d/darken.shader")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/3d/darken.shader")
 		material_override = parameters
 	if effect == Effect.DEPTH:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/3d/depth.shader")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/3d/depth.shader")
 		material_override = parameters
 	if effect == Effect.OUTLINE:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/3d/outline.shader")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/3d/outline.shader")
 		material_override = parameters
 	if effect == Effect.PALETTE:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/3d/palette.shader")
-		var gradient_texture = preload("res://addons/godot-sugar/assets/palettes/black_n_white_2c.tres")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/3d/palette.shader")
+		var gradient_texture = load(
+			"res://addons/godot-sugar/assets/palettes/black_n_white_2c.tres"
+		)
 		parameters.set_shader_param('palette_texture', gradient_texture)
-		var pattern_texture = preload("res://addons/godot-sugar/assets/bayer_dither_pattern_8x8.png")
+		var pattern_texture = load("res://addons/godot-sugar/assets/bayer_dither_pattern_8x8.png")
 		parameters.set_shader_param('dither_pattern_texture', pattern_texture)
 		material_override = parameters
 	if effect == Effect.LUT:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/3d/lut.shader")
-		var lut_texture = preload("res://addons/godot-sugar/assets/luts/32x32x32/cinematic/wipe.png")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/3d/lut.shader")
+		var lut_texture = load("res://addons/godot-sugar/assets/luts/32x32x32/cinematic/wipe.png")
 		parameters.set_shader_param('lut_texture', lut_texture)
 		material_override = parameters
 	property_list_changed_notify()

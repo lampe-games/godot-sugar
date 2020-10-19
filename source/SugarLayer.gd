@@ -1,7 +1,7 @@
 tool
 extends CanvasLayer
 
-enum Effect { NONE, BLURR, PIXELATE, GRAYSCALE, SEPIA, GRAIN, PALETTE, LUT }
+enum Effect { NONE, BLURR, PIXELATE, GRAYSCALE, SEPIA, GRAIN, PALETTE, LUT, LUT_COMPARISON }
 
 export (Effect) var effect = Effect.NONE setget _set_effect
 export (bool) var randomize_parameters = false setget _set_randomize_parameters
@@ -28,23 +28,23 @@ func _set_effect(a_effect):
 		return
 	if effect == Effect.BLURR:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/blurr.shader")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/2d/blurr.shader")
 		_setup_overlay()
 	elif effect == Effect.PIXELATE:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/pixelate.shader")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/2d/pixelate.shader")
 		_setup_overlay()
 	elif effect == Effect.GRAYSCALE:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/grayscale.shader")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/2d/grayscale.shader")
 		_setup_overlay()
 	elif effect == Effect.SEPIA:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/sepia.shader")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/2d/sepia.shader")
 		_setup_overlay()
 	elif effect == Effect.GRAIN:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/grain.shader")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/2d/grain.shader")
 		var noise_texture = NoiseTexture.new()
 		noise_texture.noise = OpenSimplexNoise.new()
 		noise_texture.noise.period = 0.1
@@ -56,16 +56,22 @@ func _set_effect(a_effect):
 		_setup_overlay()
 	elif effect == Effect.PALETTE:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/palette.shader")
-		var gradient_texture = preload("res://addons/godot-sugar/assets/palettes/black_n_white_2c.tres")
+		parameters.shader = load("res://addons/godot-sugar/source/shaders/2d/palette.shader")
+		var gradient_texture = load(
+			"res://addons/godot-sugar/assets/palettes/black_n_white_2c.tres"
+		)
 		parameters.set_shader_param('palette_texture', gradient_texture)
-		var pattern_texture = preload("res://addons/godot-sugar/assets/bayer_dither_pattern_8x8.png")
+		var pattern_texture = load("res://addons/godot-sugar/assets/bayer_dither_pattern_8x8.png")
 		parameters.set_shader_param('dither_pattern_texture', pattern_texture)
 		_setup_overlay()
-	elif effect == Effect.LUT:
+	elif effect == Effect.LUT or effect == Effect.LUT_COMPARISON:
 		parameters = ShaderMaterial.new()
-		parameters.shader = preload("res://addons/godot-sugar/source/shaders/2d/lut.shader")
-		var lut_texture = preload("res://addons/godot-sugar/assets/luts/32x32x32/cinematic/wipe.png")
+		parameters.shader = (
+			load("res://addons/godot-sugar/source/shaders/2d/lut.shader")
+			if effect == Effect.LUT
+			else load("res://addons/godot-sugar/source/shaders/2d/lut_comparison.shader")
+		)
+		var lut_texture = load("res://addons/godot-sugar/assets/luts/32x32x32/cinematic/wipe.png")
 		parameters.set_shader_param('lut_texture', lut_texture)
 		_setup_overlay()
 	else:
@@ -99,7 +105,7 @@ func _set_randomize_parameters(value):
 			gradient_texture.gradient.set_offset(i, i * 1.0 / float(palette_colors_num - 1))
 			gradient_texture.gradient.set_color(i, random_colors[i])
 		parameters.set_shader_param('palette_texture', gradient_texture)
-	if effect == Effect.LUT:
+	if effect == Effect.LUT or effect == Effect.LUT_COMPARISON:
 		var lut_texture = parameters.get_shader_param('lut_texture')
 		if lut_texture.resource_path == null:
 			return

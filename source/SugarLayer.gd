@@ -14,12 +14,12 @@ var _sorted_lut_paths = []
 
 func _ready():
 	_ready_already = true
-	if effect == Effect.NONE or parameters == null:
-		return
-	_setup_overlay()
 	var pngs = get_pngs_from_dir_recusive('res://addons/godot-sugar/assets/luts/32x32x32')
 	pngs.sort()
 	_sorted_lut_paths = pngs
+	if effect == Effect.NONE or parameters == null:
+		return
+	_setup_overlay()
 
 
 func _set_effect(a_effect):
@@ -73,6 +73,9 @@ func _set_effect(a_effect):
 		)
 		var lut_texture = load("res://addons/godot-sugar/assets/luts/32x32x32/cinematic/wipe.png")
 		parameters.set_shader_param('lut_texture', lut_texture)
+		if effect == Effect.LUT_COMPARISON:
+			var lut_2_texture = load("res://addons/godot-sugar/assets/luts/32x32x32/neutral.png")
+			parameters.set_shader_param('lut2_texture', lut_2_texture)
 		_setup_overlay()
 	else:
 		parameters = null

@@ -2,7 +2,7 @@
 
 Experimental post-processing toolkit for Godot.
 
-![pixelate]("media/pixelate.gif" "pixelate")
+![pixelate](./media/pixelate.gif?raw=true "pixelate")
 
 [![youtube](https://img.youtube.com/vi/C4oMqvwJ4FU/0.jpg)](https://www.youtube.com/watch?v=C4oMqvwJ4FU)
 
@@ -41,6 +41,6 @@ This Godot addon is experimental and it may even crash the entire editor. I reco
 
 After enabling the plugin in the `Project Settings` you can add eiter `SugarLayer` or `SugarQuad3D`:
 
-![add node]("media/add_node.png" "add node")
+![add node](./media/add_node.png?raw=true "add node")
 
 and once it's done, you can select `Effect` in ispector and tweak parameters under `Parameters->Shader Param`.

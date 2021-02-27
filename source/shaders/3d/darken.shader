@@ -5,7 +5,7 @@ uniform float darken_strength : hint_range(0.0, 1.0) = 0.95;
 
 void vertex()
 {
-  POSITION = vec4(VERTEX.xy, -1.0, 1.0);
+  POSITION = vec4(VERTEX.xy, -0.5, 0.5);
 }
 
 void fragment()

@@ -1,9 +1,10 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://addons/godot-sugar/assets/palettes/black_n_white_2c.tres" type="Texture" id=1]
-[ext_resource path="res://addons/godot-sugar/source/SugarQuad.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/godot-sugar/source/SugarQuad3D.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot-sugar/assets/bayer_dither_pattern_8x8.png" type="Texture" id=3]
 [ext_resource path="res://addons/godot-sugar/source/shaders/3d/palette.shader" type="Shader" id=4]
+
 
 
 [sub_resource type="SpatialMaterial" id=1]

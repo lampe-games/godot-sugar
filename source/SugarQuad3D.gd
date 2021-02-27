@@ -14,6 +14,9 @@ func _ready():
 	_ready_already = true
 	if effect == Effect.NONE or parameters == null:
 		return
+	mesh = QuadMesh.new()
+	cast_shadow = SHADOW_CASTING_SETTING_OFF
+	extra_cull_margin = 16384
 	material_override = parameters
 
 

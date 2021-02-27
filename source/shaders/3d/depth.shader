@@ -3,7 +3,7 @@ render_mode unshaded;
 
 void vertex()
 {
-  POSITION = vec4(VERTEX.xy, -1.0, 1.0);
+  POSITION = vec4(VERTEX.xy, -0.5, 0.5);
 }
 
 void fragment()

@@ -2,11 +2,15 @@
 
 Experimental post-processing toolkit for Godot.
 
+## Showcase
+
 ![pixelate](./media/pixelate.gif?raw=true "pixelate")
 
-[![youtube](https://img.youtube.com/vi/C4oMqvwJ4FU/0.jpg)](https://www.youtube.com/watch?v=C4oMqvwJ4FU)
+Video: [https://www.youtube.com/watch?v=C4oMqvwJ4FU](https://www.youtube.com/watch?v=C4oMqvwJ4FU)
 
-It provides a couple of nodes:
+## Features
+
+This project provides a couple of nodes:
 
 * `SugarLayer` (`CanvasLayer`) - works with both - 2D and 3D scenes
 * `SugarQuad` (`MeshInstance` with `1x1` quad) - works with 3D scenes only

@@ -2,6 +2,10 @@
 
 Experimental post-processing toolkit for Godot.
 
+![pixelate]("media/pixelate.gif" "pixelate")
+
+[![youtube](https://img.youtube.com/vi/C4oMqvwJ4FU/0.jpg)](https://www.youtube.com/watch?v=C4oMqvwJ4FU)
+
 It provides a couple of nodes:
 
 * `SugarLayer` (`CanvasLayer`) - works with both - 2D and 3D scenes
@@ -35,5 +39,8 @@ This Godot addon is experimental and it may even crash the entire editor. I reco
 
 ## Usage
 
-At the moment you either have to instance `SugarLayer` (for 2D or 3D) or `SugarQuad` (for 3D).
-Once it's done, you can select `Effect` in ispector and tweak parameters under `Parameters->Shader Param`.
+After enabling the plugin in the `Project Settings` you can add eiter `SugarLayer` or `SugarQuad3D`:
+
+![add node]("media/add_node.png" "add node")
+
+and once it's done, you can select `Effect` in ispector and tweak parameters under `Parameters->Shader Param`.

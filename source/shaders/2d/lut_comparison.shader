@@ -16,29 +16,31 @@ void fragment()
   vec3 original_color = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
   if (SCREEN_UV.x <= splitpoint)
   {
-    ivec2 lut_texture_size = textureSize(lut_texture, 0);
-    float lut_cell_size = float(lut_texture_size.y);
-    vec2 lut_texel_half = vec2(0.5) / vec2(lut_texture_size);
-    float x_cell = (ceil(original_color.b * lut_cell_size) - 1.0) / lut_cell_size;
-    vec2 lut_uv = vec2(
-        lut_texel_half.x + x_cell +
-            (ceil(original_color.r * lut_cell_size) - 1.0) / lut_cell_size / lut_cell_size,
-        lut_texel_half.y + (1.0 - original_color.g) * float(!lut_horizontal_flip) +
-            original_color.g * float(lut_horizontal_flip));
+    vec2 lut_texture_size = vec2(textureSize(lut_texture, 0)); // suppose 1024x32
+    float lut_cell_size = lut_texture_size.y; // f<32>
+    vec3 foriginal_color = original_color * (lut_cell_size - 1.0); // (f<0;31>;;)
+    vec2 lut_texel_half = vec2(0.5) / vec2(lut_texture_size); // e.g. 0.25 for 2 texels
+    float x_base = round(foriginal_color.b) * lut_cell_size; // f<0;31*32>
+    float lut_uv_x = (x_base + foriginal_color.r) / lut_texture_size.x + lut_texel_half.x;
+    float lut_uv_y = foriginal_color.g / lut_texture_size.y + lut_texel_half.y;
+    lut_uv_y =
+        (1.0 - lut_uv_y) * float(!lut_horizontal_flip) + lut_uv_y * float(lut_horizontal_flip);
+    vec2 lut_uv = vec2(lut_uv_x, lut_uv_y);
     COLOR.rgb =
         mix(original_color, textureLod(lut_texture, lut_uv, 0.0).rgb, lut_color_contribution);
   }
   else
   {
-    ivec2 lut_texture_size = textureSize(lut2_texture, 0);
-    float lut_cell_size = float(lut_texture_size.y);
-    vec2 lut_texel_half = vec2(0.5) / vec2(lut_texture_size);
-    float x_cell = (ceil(original_color.b * lut_cell_size) - 1.0) / lut_cell_size;
-    vec2 lut_uv = vec2(
-        lut_texel_half.x + x_cell +
-            (ceil(original_color.r * lut_cell_size) - 1.0) / lut_cell_size / lut_cell_size,
-        lut_texel_half.y + (1.0 - original_color.g) * float(!lut2_horizontal_flip) +
-            original_color.g * float(lut2_horizontal_flip));
+    vec2 lut_texture_size = vec2(textureSize(lut2_texture, 0)); // suppose 1024x32
+    float lut_cell_size = lut_texture_size.y; // f<32>
+    vec3 foriginal_color = original_color * (lut_cell_size - 1.0); // (f<0;31>;;)
+    vec2 lut_texel_half = vec2(0.5) / vec2(lut_texture_size); // e.g. 0.25 for 2 texels
+    float x_base = round(foriginal_color.b) * lut_cell_size; // f<0;31*32>
+    float lut_uv_x = (x_base + foriginal_color.r) / lut_texture_size.x + lut_texel_half.x;
+    float lut_uv_y = foriginal_color.g / lut_texture_size.y + lut_texel_half.y;
+    lut_uv_y =
+        (1.0 - lut_uv_y) * float(!lut2_horizontal_flip) + lut_uv_y * float(lut2_horizontal_flip);
+    vec2 lut_uv = vec2(lut_uv_x, lut_uv_y);
     COLOR.rgb =
         mix(original_color, textureLod(lut2_texture, lut_uv, 0.0).rgb, lut2_color_contribution);
   }
